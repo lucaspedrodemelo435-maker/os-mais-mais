@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Participações TUDO JUNTO</title>
+    
+    <style>
+        /* Variáveis CSS */
+        :root {
+            --cor-fundo: #0a0a0a;
+            --cor-neon-azul: #00fffb; /* Participar, Prêmios */
+            --cor-neon-roxo: #ff00e5; /* Não Quero, Modal */
+            --cor-neon-verde: #00ff66; /* Notificação de Prêmios */
+            --cor-texto: #ffffff;
+            --cor-fundo-input: #333333;
+            --cor-fundo-modal: #1e1e1e;
+        }
+
+        /* 1. CENTRALIZAÇÃO COMPLETA DO CONTEÚDO (body) */
+        body {
+            background-color: var(--cor-fundo);
+            color: var(--cor-texto);
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Centraliza verticalmente */
+            align-items: center; /* Centraliza horizontalmente */
+            height: 100vh; /* Ocupa a altura total da tela */
+            margin: 0;
+            gap: 40px;
+        }
+
+        /* Estrutura de centralização do formulário */
+        #participation-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Grupo de botões: Alinha 3 botões lado a lado */
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px; 
+            margin-top: 20px;
+        }
+
+        /* 2. ESTILO DO TÍTULO */
+        h1 {
+            font-size: 3em;
+            text-shadow: 0 0 10px var(--cor-neon-azul);
+        }
+
+        /* 3. INPUT GERAL */
+        .input-nome {
+            padding: 15px;
+            width: 300px;
+            border: 2px solid var(--cor-neon-azul);
+            border-radius: 8px;
+            background-color: var(--cor-fundo-input);
+            color: var(--cor-texto);
+            font-size: 1.1em;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 255, 251, 0.2);
+            transition: box-shadow 0.3s;
+            text-align: center;
+        }
+
+        .input-nome:focus {
+            box-shadow: 0 0 10px var(--cor-neon-azul);
+        }
+
+        /* 4. ESTILOS DE BOTÕES GERAIS E HOVER */
+        .btn-base {
+            background-color: transparent;
+            color: var(--cor-texto);
+            padding: 15px 25px;
+            border-radius: 50px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.4s ease-in-out; 
+            min-width: 120px;
+        }
+
+        /* Botão Azul (Participar e Prêmios) */
+        .btn-azul {
+            border: 2px solid var(--cor-neon-azul);
+            box-shadow: 0 0 5px rgba(0, 255, 251, 0.2);
+        }
+
+        .btn-azul:hover {
+            background-color: var(--cor-neon-azul);
+            color: #000000;
+            box-shadow: 0 0 30px var(--cor-neon-azul);
+            transform: scale(1.05);
+        }
+
+        /* Botão Roxo (Não Quero) */
+        .btn-nao-quero {
+            border: 2px solid var(--cor-neon-roxo);
+            box-shadow: 0 0 5px rgba(255, 0, 229, 0.2);
+        }
+
+        .btn-nao-quero:hover {
+            background-color: var(--cor-neon-roxo);
+            color: #000000;
+            box-shadow: 0 0 30px var(--cor-neon-roxo);
+            transform: scale(1.05);
+        }
+
+        /* 5. ESTILOS DA NOTIFICAÇÃO (Base) */
+        .notification-base {
+            position: fixed; 
+            bottom: -100px; 
+            left: 50%;
+            transform: translateX(-50%); 
+            padding: 15px 30px;
+            color: #000000;
+            border-radius: 5px;
+            font-weight: bold;
+            z-index: 1000; 
+            opacity: 0; 
+            transition: bottom 0.5s ease-out, opacity 0.5s ease-out; 
+        }
+
+        .notification-base.show {
+            bottom: 30px; 
+            opacity: 1; 
+        }
+
+        /* Notificação por Cor */
+        .notification-azul {
+            background-color: var(--cor-neon-azul);
+            box-shadow: 0 0 20px var(--cor-neon-azul);
+        }
+
+        .notification-verde {
+            background-color: var(--cor-neon-verde);
+            box-shadow: 0 0 20px var(--cor-neon-verde);
+        }
+
+        /* 6. ESTILOS DO MODAL DE SAÍDA */
+        #exit-modal {
+            display: none; 
+            position: fixed;
+            z-index: 2000;
+            left: 0; top: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: var(--cor-fundo-modal);
+            padding: 30px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 400px;
+            box-shadow: 0 0 40px var(--cor-neon-roxo); 
+            border: 2px solid var(--cor-neon-roxo);
+            color: var(--cor-texto);
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .modal-content h2 {
+            color: var(--cor-neon-roxo);
+            text-align: center;
+        }
+
+        .modal-content textarea {
+            width: 100%; 
+            margin-top: 10px; 
+            padding: 10px; 
+            box-sizing: border-box; 
+            resize: vertical;
+            border: 1px solid var(--cor-neon-roxo);
+            background-color: var(--cor-fundo-input);
+            color: var(--cor-texto);
+            border-radius: 5px;
+        }
+
+        .radio-group label {
+            display: block;
+            margin: 15px 0;
+            font-size: 1.1em;
+            cursor: pointer;
+        }
+
+        .modal-buttons {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 30px;
+        }
+
+        .btn-confirmar {
+            background-color: var(--cor-neon-roxo);
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-confirmar:hover {
+            background-color: #ff33f0;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    
+    <h1>Participações
+        <br>
+        Os mais mais
+    </h1>
+
+    <form id="participation-form">
+        <input 
+            type="text" 
+            id="nome" 
+            class="input-nome" 
+            placeholder="Digite seu nome aqui" 
+            required
+        >
+        
+        <div class="button-group">
+            <button type="submit" class="btn-base btn-azul" id="btn-participar">
+                Participar Agora
+            </button>
+           
+            <button type="button" class="btn-base btn-azul" id="btn-premios">
+                Prêmios
+            </button>
+
+            <button type="button" class="btn-base btn-nao-quero" id="btn-nao-quero">
+                NÃO QUERO
+            </button>
+        </div>
+    </form>
+
+    <div id="notification-sim" class="notification-base notification-azul">
+        Você precisa ser Aprovado para participar
+    </div>
+
+    <div id="notification-premios" class="notification-base notification-verde">
+        Você ainda não conquistou nenhum prêmio! 🏆
+    </div>
+
+    <div id="exit-modal">
+        <div class="modal-content">
+            <h2>Por que você não quer participar?</h2>
+            <form id="exit-reason-form">
+                <div class="radio-group">
+                    <label><input type="radio" name="reason" value="1" required> 1. O conteúdo parece muito chato</label>
+                    <label><input type="radio" name="reason" value="2"> 2. Não tenho interesse, só isso</label>
+                    <label><input type="radio" name="reason" value="3"> 3. Outro motivo (escreva abaixo)</label>
+                </div>
+                <textarea id="other-reason" placeholder="Detalhe sua razão aqui (opcional)"></textarea>
+                <div class="modal-buttons">
+                    <button type="submit" class="btn-confirmar">Confirmar Saída</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Constantes para IDs dos elementos
+        const participationForm = document.getElementById('participation-form');
+        const btnPremios = document.getElementById('btn-premios');
+        const btnNaoQuero = document.getElementById('btn-nao-quero');
+        const exitModal = document.getElementById('exit-modal');
+        const exitReasonForm = document.getElementById('exit-reason-form');
+        const notificationSim = document.getElementById('notification-sim');
+        const notificationPremios = document.getElementById('notification-premios');
+
+        /**
+         * Função unificada para mostrar notificação, escondendo as outras.
+         * @param {HTMLElement} element - O elemento de notificação a ser mostrado.
+         */
+        function showNotification(element) {
+            // Esconde todas as notificações
+            notificationSim.classList.remove('show');
+            notificationPremios.classList.remove('show');
+            
+            // Mostra a notificação desejada
+            element.classList.add('show');
+            
+            // Esconde a notificação após 3 segundos
+            setTimeout(() => {
+                element.classList.remove('show');
+            }, 3000);
+        }
+
+        // --- Handlers de Ação ---
+
+        // 1. Botão "Participar Agora" (Submissão de formulário)
+        function handleParticipation(event) {
+            event.preventDefault(); 
+            showNotification(notificationSim);
+        }
+
+        // 2. Botão "Prêmios"
+        function showPrizesStatus() {
+            showNotification(notificationPremios);
+        }
+
+        // 3. Botão "NÃO QUERO"
+        function showExitModal() {
+            exitModal.style.display = 'flex';
+        }
+
+        // 4. Modal de Saída - Submissão do motivo
+        function submitExitReason(event) {
+            event.preventDefault();
+            
+            const selectedReason = document.querySelector('input[name="reason"]:checked');
+            const otherReasonText = document.getElementById('other-reason').value.trim();
+
+            let message;
+            if (selectedReason) {
+                message = `Motivo ${selectedReason.value}. Detalhes: ${otherReasonText || 'Nenhum'}`;
+            } else {
+                 message = "Motivo não especificado. Fechando o modal.";
+            }
+
+            // Ação: Fecha o modal e exibe um alerta de feedback
+            exitModal.style.display = 'none';
+            alert("Obrigado pelo seu feedback! " + message);
+        }
+
+        // --- Listeners de Evento (Conecta o JS ao HTML) ---
+
+        // Ouvinte para o formulário principal
+        participationForm.addEventListener('submit', handleParticipation);
+
+        // Ouvinte para o botão Prêmios
+        btnPremios.addEventListener('click', showPrizesStatus);
+
+        // Ouvinte para o botão Não Quero
+        btnNaoQuero.addEventListener('click', showExitModal);
+
+        // Ouvinte para o formulário dentro do modal
+        exitReasonForm.addEventListener('submit', submitExitReason);
+
+        // Fechar o modal ao clicar fora dele
+        window.addEventListener('click', function(event) {
+            if (event.target == exitModal) {
+                exitModal.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
