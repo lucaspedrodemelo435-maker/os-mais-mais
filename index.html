@@ -241,12 +241,10 @@
             </button>
            
             <button type="button" class="btn-base btn-azul" id="btn-premios">
-                Prêmios
+                Sair Agora
             </button>
 
-            <button type="button" class="btn-base btn-nao-quero" id="btn-nao-quero">
-                NÃO QUERO
-            </button>
+
         </div>
     </form>
 
@@ -255,7 +253,7 @@
     </div>
 
     <div id="notification-premios" class="notification-base notification-verde">
-        Você ainda não conquistou nenhum prêmio! 🏆
+        Você não está mais participando!
     </div>
 
     <div id="exit-modal">
@@ -361,5 +359,227 @@
             }
         });
     </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Botão Animado com Lista</title>
+    <style>
+        /* Estilos Gerais e Centralização */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #0d1a26; /* Fundo escuro para destacar o brilho */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Oculta o checkbox (será controlado pelo clique no botão/label) */
+        #toggle-list {
+            display: none;
+        }
+
+        /* Container Principal do Botão e Lista */
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Estilo do Botão Brilhante Animado */
+        .button-label {
+            display: block; /* Para que o padding e margin funcionem */
+            text-decoration: none;
+            padding: 15px 30px;
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #ffffff; /* Texto branco */
+            background-color: #1aff00; /* Verde brilhante principal */
+            border: 3px solid #1aff00; /* Borda do mesmo verde */
+            border-radius: 10px;
+            cursor: pointer;
+            position: relative;
+            z-index: 10; /* Fica acima da lista */
+            box-shadow: 0 0 15px rgba(26, 255, 0, 0.8),
+                        0 0 30px rgba(26, 255, 0, 0.6); /* Efeito de brilho */
+            transition: all 0.3s ease-in-out;
+            text-shadow: 0 0 5px #1aff00;
+            text-transform: uppercase;
+        }
+
+        /* Animação de Brilho Pulsante no Botão */
+        .button-label:hover {
+            background-color: #0dff00;
+            box-shadow: 0 0 20px rgba(13, 255, 0, 1),
+                        0 0 40px rgba(13, 255, 0, 0.8),
+                        0 0 60px rgba(13, 255, 0, 0.5);
+            transform: scale(1.05);
+            animation: pulse 1.5s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 15px rgba(26, 255, 0, 0.8), 0 0 30px rgba(26, 255, 0, 0.6); }
+            100% { box-shadow: 0 0 25px rgba(13, 255, 0, 1), 0 0 50px rgba(13, 255, 0, 0.8); }
+        }
+
+        /* Estilo da Lista de Participantes (Barra) */
+        .participants-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+            background-color: #2c3e50; /* Fundo da barra */
+            border-radius: 8px;
+            overflow: hidden; /* Oculta os itens enquanto não expandida */
+            width: 200px; /* Largura da barra */
+            max-height: 0; /* Começa fechada */
+            opacity: 0; /* Começa invisível */
+            transition: max-height 0.5s ease-out, opacity 0.5s ease-out;
+        }
+
+        .participants-list li {
+            padding: 10px 20px;
+            border-bottom: 1px solid #34495e;
+            color: #ecf0f1;
+            text-align: center;
+        }
+
+        .participants-list li:last-child {
+            border-bottom: none;
+        }
+
+        /* Ação de Abrir a Lista - Usando o Checkbox Invisível */
+        /* Quando o checkbox é marcado (clicado) */
+        #toggle-list:checked ~ .participants-list {
+            max-height: 500px; /* Valor grande para garantir a abertura */
+            opacity: 1;
+            transition: max-height 0.7s ease-in-out, opacity 0.7s ease-in-out 0.2s; /* Adiciona um pequeno delay na opacidade para parecer que desliza */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <input type="checkbox" id="toggle-list">
+
+        <label for="toggle-list" class="button-label">
+            VER PARTICIPANTES
+        </label>
+
+        <ul class="participants-list">
+            <li>Quezia</li>
+            <li>Wendrel</li>
+            <li>Lucas</li>
+            <li>Paula</li>
+            <li>Ariel</li>
+        </ul>
+    </div>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Botão e Parágrafo com Fonte Personalizada</title>
+    <style>
+        /* 0. CARREGAMENTO DA FONTE PERSONALIZADA */
+        /* Certifique-se de que o arquivo 'Heavitas.ttf' está na mesma pasta que este HTML */
+        @font-face {
+            font-family: 'Heavitas';
+            src: url('Heavitas.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        /* 1. Centralização Perfeita (Horizontal e Vertical) */
+        body {
+            display: flex;
+            justify-content: center; /* Centraliza horizontalmente */
+            align-items: center; /* Centraliza verticalmente */
+            height: 100vh;
+            margin: 0;
+            background-color: #0b1a2b; /* Fundo escuro para destacar o neon */
+            font-family: Arial, sans-serif;
+            flex-direction: column; /* Organiza os elementos verticalmente no centro */
+            gap: 30px; /* Espaço entre o parágrafo e o botão */
+        }
+
+        /* 2. Estilo do Parágrafo Centralizado */
+        .centered-paragraph {
+            font-family: 'Heavitas', sans-serif; /* Aplica a fonte personalizada */
+            color: #ffffff; /* Cor branca */
+            font-size: 1.8rem;
+            text-align: center;
+            padding: 0 20px;
+            max-width: 80%; /* Limita a largura para melhor leitura */
+        }
+
+        /* 3. Estilos do Botão Neon Azul (do pedido anterior) */
+        :root {
+            --neon-blue: #00bfff; /* Ciano/Azul claro para o brilho */
+        }
+
+        .neon-button {
+            text-decoration: none;
+            text-transform: uppercase;
+            padding: 15px 40px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+            color: var(--neon-blue);
+            background: transparent;
+            border: 3px solid var(--neon-blue);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            
+            box-shadow: 0 0 5px var(--neon-blue),
+                        0 0 10px var(--neon-blue);
+            text-shadow: 0 0 5px var(--neon-blue);
+            animation: pulse-border 2s infinite alternate;
+        }
+
+        .neon-button:hover {
+            color: #0b1a2b;
+            background: var(--neon-blue);
+            box-shadow: 0 0 20px var(--neon-blue),
+                        0 0 40px var(--neon-blue),
+                        0 0 60px var(--neon-blue),
+                        0 0 80px var(--neon-blue);
+            text-shadow: none;
+        }
+        
+        @keyframes pulse-border {
+            0% {
+                border-color: var(--neon-blue);
+                box-shadow: 0 0 5px var(--neon-blue), 0 0 10px var(--neon-blue);
+            }
+            100% {
+                border-color: #4dc2ff;
+                box-shadow: 0 0 10px #4dc2ff, 0 0 20px #4dc2ff;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <p class="centered-paragraph">
+        Os que não se cadastraram
+        <br>
+        tem uma segunda chance
+    </p>
+
 </body>
 </html>
